@@ -1,33 +1,20 @@
+
 services:
-  postgres:
+
+  db:
     image: postgres
     container_name: postgres
     restart: always
+    shm_size: 128mb
     ports:
-      - '5432:5432'
+      - "5432:5432"
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: teste
+      POSTGRES_PASSWORD: admin
       POSTGRES_DB: produits
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
 
   adminer:
     image: adminer
-    container_name: adminer
     restart: always
     ports:
       - 8080:8080
-    networks:
-      - app-network
-    depends_on:
-      - postgres
-
-networks:
-  app-network:
-    driver: bridge
-
-volumes:
-  postgres_data:
